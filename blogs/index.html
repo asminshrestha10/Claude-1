@@ -1,0 +1,27 @@
+---
+layout: default
+title: Blogs
+section: blog
+permalink: /blogs/
+---
+<div class="listing-head">
+  <div class="wrap">
+    <h1>Blogs</h1>
+    <p>Build guides, engineering explainers and trip write-ups from the JuneTrial team.</p>
+    {% assign cats = site.blogs | map: "category" | uniq %}
+    <div class="filter-bar">
+      <span class="active">All</span>
+      {% for c in cats %}<span>{{ c }}</span>{% endfor %}
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="wrap">
+    <div class="grid">
+      {% assign blogs = site.blogs | sort: "date" | reverse %}
+      {% for item in blogs %}
+        {% include card-article.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

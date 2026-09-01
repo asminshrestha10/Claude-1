@@ -1,0 +1,27 @@
+---
+layout: default
+title: Vehicles
+section: vehicle
+permalink: /vehicles/
+---
+<div class="listing-head">
+  <div class="wrap">
+    <h1>Vehicles</h1>
+    <p>Reviews and spec breakdowns of 4x4s and off-road-capable vehicles, tested for how they actually behave off the tarmac.</p>
+    {% assign cats = site.vehicles | map: "category" | uniq %}
+    <div class="filter-bar">
+      <span class="active">All</span>
+      {% for c in cats %}<span>{{ c }}</span>{% endfor %}
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="wrap">
+    <div class="grid">
+      {% assign vehicles = site.vehicles | sort: "date" | reverse %}
+      {% for item in vehicles %}
+        {% include card-vehicle.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

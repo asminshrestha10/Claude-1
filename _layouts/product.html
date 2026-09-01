@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<article>
+  <div class="article-head">
+    <div class="wrap">
+      <span class="cat">{{ page.category }}</span>
+      <h1>{{ page.title }}</h1>
+    </div>
+  </div>
+
+  <div class="product-detail">
+    <div class="product-detail__img">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}" loading="lazy">
+    </div>
+    <div>
+      <div class="product-detail__price">{{ page.price }}</div>
+      <div class="product-detail__rating">{% for i in (1..5) %}{% if i <= page.rating %}&#9733;{% else %}&#9734;{% endif %}{% endfor %} ({{ page.rating }}/5)</div>
+      {{ content }}
+      <div class="affiliate-box">
+        <span class="label">Buy it</span>
+        <div class="affiliate-box__row">
+          <span>Available on Amazon</span>
+          <a class="btn btn--rust" href="{{ page.amazon_url }}" target="_blank" rel="nofollow sponsored noopener">{{ page.button_text | default: "Check Price on Amazon" }}</a>
+        </div>
+      </div>
+      <p class="disclosure-note">As an Amazon Associate, JuneTrial earns from qualifying purchases at no extra cost to you. See our <a href="{{ '/affiliate-disclosure/' | relative_url }}">Affiliate Disclosure</a>.</p>
+    </div>
+  </div>
+
+  {% assign related = site.products | where: "category", page.category | where_exp: "item", "item.url != page.url" | limit: 3 %}
+  {% if related.size > 0 %}
+  <div class="section section--panel">
+    <div class="wrap">
+      <div class="section__head"><h2>Similar Products</h2></div>
+      <div class="grid">
+        {% for item in related %}
+          {% include card-product.html item=item %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</article>

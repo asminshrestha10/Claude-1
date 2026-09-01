@@ -1,0 +1,45 @@
+---
+layout: default
+---
+<article>
+  <div class="article-head">
+    <div class="wrap">
+      <span class="cat">{{ page.category }} &middot; {{ page.year }}</span>
+      <h1>{{ page.title }}</h1>
+      <p class="byline">{{ page.tagline }}</p>
+    </div>
+  </div>
+
+  {% if page.image %}
+  <div class="article-hero-img">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}" loading="lazy">
+  </div>
+  {% endif %}
+
+  <div class="article-body">
+    {{ content }}
+
+    {% if page.specs %}
+    <div class="detail-specs">
+      <h3>Key Specifications</h3>
+      {% for spec in page.specs %}
+      <div class="spec-line"><span>{{ spec.label }}</span><span class="mono">{{ spec.value }}</span></div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  {% assign related = site.vehicles | where: "category", page.category | where_exp: "item", "item.url != page.url" | limit: 3 %}
+  {% if related.size > 0 %}
+  <div class="section section--panel">
+    <div class="wrap">
+      <div class="section__head"><h2>Related Vehicles</h2></div>
+      <div class="grid">
+        {% for item in related %}
+          {% include card-vehicle.html item=item %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</article>

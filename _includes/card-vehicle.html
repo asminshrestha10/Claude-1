@@ -1,0 +1,14 @@
+<article class="card">
+  <a class="card__img" href="{{ include.item.url | relative_url }}">
+    <img src="{{ include.item.image | relative_url }}" alt="{{ include.item.image_alt | default: include.item.title }}" loading="lazy" width="400" height="300">
+  </a>
+  <div class="card__body">
+    <span class="card__meta">{{ include.item.category }} &middot; {{ include.item.year }}</span>
+    <h3 class="card__title"><a href="{{ include.item.url | relative_url }}">{{ include.item.title }}</a></h3>
+    <p class="card__excerpt">{{ include.item.excerpt_text | default: include.item.description }}</p>
+    <div class="card__footer">
+      <span>{{ include.item.key_spec }}</span>
+      <a href="{{ include.item.url | relative_url }}" class="btn btn--sm">Read More</a>
+    </div>
+  </div>
+</article>

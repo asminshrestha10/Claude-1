@@ -1,0 +1,27 @@
+---
+layout: default
+title: News
+section: news
+permalink: /news/
+---
+<div class="listing-head">
+  <div class="wrap">
+    <h1>News</h1>
+    <p>Automotive and 4x4 industry news — new model releases, regulation changes and events.</p>
+    {% assign cats = site.news | map: "category" | uniq %}
+    <div class="filter-bar">
+      <span class="active">All</span>
+      {% for c in cats %}<span>{{ c }}</span>{% endfor %}
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="wrap">
+    <div class="grid">
+      {% assign news = site.news | sort: "date" | reverse %}
+      {% for item in news %}
+        {% include card-article.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

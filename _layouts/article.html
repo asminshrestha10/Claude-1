@@ -1,0 +1,62 @@
+---
+layout: default
+---
+<article>
+  <div class="article-head">
+    <div class="wrap">
+      <span class="cat">{{ page.category }}</span>
+      <h1>{{ page.title }}</h1>
+      <p class="byline">By {{ page.author | default: site.author }} &middot; {{ page.date | date: "%B %-d, %Y" }}</p>
+    </div>
+  </div>
+
+  {% if page.image %}
+  <div class="article-hero-img">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}" loading="lazy">
+  </div>
+  {% endif %}
+
+  <div class="article-body">
+    {{ content }}
+
+    {% if page.disclose_affiliate %}
+    <p class="disclosure-note">This article contains Amazon affiliate links. As an Amazon Associate, JuneTrial earns from qualifying purchases at no extra cost to you. See our <a href="{{ '/affiliate-disclosure/' | relative_url }}">Affiliate Disclosure</a>.</p>
+    {% endif %}
+  </div>
+
+  {% comment %} Related articles: same collection, same category, excluding current {% endcomment %}
+  {% assign coll = site[page.collection] %}
+  {% assign related = coll | where: "category", page.category | where_exp: "item", "item.url != page.url" | limit: 3 %}
+  {% if related.size > 0 %}
+  <div class="section section--panel">
+    <div class="wrap">
+      <div class="section__head"><h2>Related Articles</h2></div>
+      <div class="grid">
+        {% for item in related %}
+          {% include card-article.html item=item %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% comment %} Prev / next within the same collection, ordered by date {% endcomment %}
+  {% assign sorted = coll | sort: "date" %}
+  {% assign idx = 0 %}
+  {% for item in sorted %}{% if item.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}{% endfor %}
+  {% assign prev_item = sorted[idx | minus: 1] %}
+  {% assign next_index = idx | plus: 1 %}
+  {% assign next_item = sorted[next_index] %}
+  <nav class="article-nav">
+    <div>
+      {% if idx > 0 %}
+      <a href="{{ prev_item.url | relative_url }}"><span class="dir">&larr; Previous</span>{{ prev_item.title }}</a>
+      {% endif %}
+    </div>
+    <div style="text-align:right;">
+      {% if next_item %}
+      <a href="{{ next_item.url | relative_url }}"><span class="dir">Next &rarr;</span>{{ next_item.title }}</a>
+      {% endif %}
+    </div>
+  </nav>
+</article>

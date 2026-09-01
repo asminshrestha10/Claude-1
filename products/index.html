@@ -1,0 +1,28 @@
+---
+layout: default
+title: Products
+section: product
+permalink: /products/
+---
+<div class="listing-head">
+  <div class="wrap">
+    <h1>Products</h1>
+    <p>4x4 accessories, recovery equipment and gear we'd actually put on our own vehicles. Prices and links go to Amazon.</p>
+    {% assign cats = site.products | map: "category" | uniq %}
+    <div class="filter-bar">
+      <span class="active">All</span>
+      {% for c in cats %}<span>{{ c }}</span>{% endfor %}
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="wrap">
+    <div class="grid">
+      {% assign products = site.products | sort: "date" | reverse %}
+      {% for item in products %}
+        {% include card-product.html item=item %}
+      {% endfor %}
+    </div>
+    <p class="disclosure-note">{{ site.amazon_disclosure }}</p>
+  </div>
+</div>
