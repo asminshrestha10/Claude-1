@@ -1,0 +1,122 @@
+---
+layout: home
+title: Home
+---
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <span class="hero__tag">4X4 &amp; OFF-ROAD, FROM AN ENGINEERING DESK</span>
+      <h1>June<span style="color:var(--rust)">Trial</span></h1>
+      <p class="lede">{{ site.tagline }}. Honest vehicle reviews, build guides and recovery gear picks for people who understand torque curves and don't trust marketing copy.</p>
+      <div class="hero__actions">
+        <a href="{{ '/vehicles/' | relative_url }}" class="btn btn--primary">Explore Vehicles</a>
+        <a href="{{ '/blogs/' | relative_url }}" class="btn">Read Latest Blogs</a>
+      </div>
+    </div>
+    <div class="hero__panel">
+      <h3>Currently testing</h3>
+      {% assign featured = site.vehicles | first %}
+      {% if featured %}
+      <div class="spec-line"><span>Vehicle</span><span class="mono">{{ featured.title }}</span></div>
+      <div class="spec-line"><span>Category</span><span class="mono">{{ featured.category }}</span></div>
+      <div class="spec-line"><span>Year</span><span class="mono">{{ featured.year }}</span></div>
+      {% if featured.specs %}{% for spec in featured.specs limit:2 %}
+      <div class="spec-line"><span>{{ spec.label }}</span><span class="mono">{{ spec.value }}</span></div>
+      {% endfor %}{% endif %}
+      <a href="{{ featured.url | relative_url }}" class="btn btn--sm" style="margin-top:16px;">Read the review</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Featured Vehicles</h2>
+      <a class="see-all" href="{{ '/vehicles/' | relative_url }}">All Vehicles &rarr;</a>
+    </div>
+    <div class="grid">
+      {% assign vehicles = site.vehicles | sort: "date" | reverse | limit: 3 %}
+      {% for item in vehicles %}
+        {% include card-vehicle.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--panel">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Latest Blogs</h2>
+      <a class="see-all" href="{{ '/blogs/' | relative_url }}">All Blogs &rarr;</a>
+    </div>
+    <div class="grid">
+      {% assign blogs = site.blogs | sort: "date" | reverse | limit: 3 %}
+      {% for item in blogs %}
+        {% include card-article.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Latest News</h2>
+      <a class="see-all" href="{{ '/news/' | relative_url }}">All News &rarr;</a>
+    </div>
+    <div class="grid">
+      {% assign news = site.news | sort: "date" | reverse | limit: 3 %}
+      {% for item in news %}
+        {% include card-article.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--panel">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Featured Products</h2>
+      <a class="see-all" href="{{ '/products/' | relative_url }}">All Products &rarr;</a>
+    </div>
+    <div class="grid">
+      {% assign products = site.products | sort: "date" | reverse | limit: 3 %}
+      {% for item in products %}
+        {% include card-product.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head"><h2>Engineering &amp; Guides</h2></div>
+    <p style="max-width:60ch; color:var(--ink-soft);">The blogs marked <span class="mono" style="color:var(--green)">Engineering</span> dig into the mechanical side of 4x4 travel — suspension geometry, recovery physics, drivetrain wear — written for people who want to understand the "why", not just the "buy this".</p>
+    <div class="grid">
+      {% assign guides = site.blogs | where: "category", "Engineering" | limit: 3 %}
+      {% for item in guides %}
+        {% include card-article.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="wrap">
+    <h2>Get new reviews in your inbox</h2>
+    <p>One email when we publish a new vehicle review or guide. No spam, unsubscribe any time.</p>
+    <form onsubmit="return false;">
+      <input type="email" placeholder="you@example.com" required>
+      <button type="submit" class="btn btn--rust">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<section class="section" id="about-teaser">
+  <div class="wrap" style="max-width:740px;">
+    <div class="section__head"><h2>About JuneTrial</h2></div>
+    <p>JuneTrial is written for people who take vehicles seriously — the engineering, the trade-offs, and the gear that actually earns its place in the tray. <a href="{{ '/about/' | relative_url }}">Read more about what we do &rarr;</a></p>
+    <p class="disclosure-note">{{ site.amazon_disclosure }} <a href="{{ '/affiliate-disclosure/' | relative_url }}">Full disclosure &rarr;</a></p>
+  </div>
+</section>

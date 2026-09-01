@@ -1,0 +1,89 @@
+# ============================================================
+# JuneTrial site configuration
+# Edit values here to change site-wide info (name, description, etc.)
+# You will rarely need to touch this file after initial setup.
+# ============================================================
+
+title: JuneTrial
+tagline: "Vehicles. Engineering. Gear. Adventure."
+description: >-
+  JuneTrial covers 4x4 and off-road vehicles from an engineering
+  perspective — reviews, build guides, recovery gear and honest
+  product picks for people who actually go where the tarmac ends.
+url: "https://example.github.io"     # CHANGE to your GitHub Pages URL, e.g. https://yourusername.github.io
+baseurl: ""                          # leave empty unless the repo is not named yourusername.github.io
+                                      # e.g. baseurl: "/junetrial" if repo is github.com/you/junetrial
+
+author: JuneTrial
+email: contact@example.com
+
+# Amazon affiliate disclosure tag shown in the footer / about page.
+# Change this once you have your own Amazon Associates ID.
+amazon_disclosure: >-
+  JuneTrial is a participant in the Amazon Services LLC Associates Program.
+  As an Amazon Associate we earn from qualifying purchases, at no extra cost to you.
+
+# Social links (leave blank to hide from footer)
+social:
+  instagram: ""
+  youtube: ""
+  facebook: ""
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+permalink: /:categories/:title/
+
+collections:
+  vehicles:
+    output: true
+    permalink: /vehicle/:path/
+  blogs:
+    output: true
+    permalink: /blog/:path/
+  news:
+    output: true
+    permalink: /news/:path/
+  products:
+    output: true
+    permalink: /product/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "vehicles"
+    values:
+      layout: "vehicle"
+  - scope:
+      path: ""
+      type: "blogs"
+    values:
+      layout: "article"
+      section: "blog"
+  - scope:
+      path: ""
+      type: "news"
+    values:
+      layout: "article"
+      section: "news"
+  - scope:
+      path: ""
+      type: "products"
+    values:
+      layout: "product"
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+
+sass:
+  style: compressed
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - CONTENT-GUIDE.md
